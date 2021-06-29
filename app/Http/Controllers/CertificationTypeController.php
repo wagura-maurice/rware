@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CertificationType;
 use Illuminate\Http\Request;
-use App\Models\PermissionRole;
 
-class PermissionRoleController extends Controller
+class CertificationTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,13 @@ class PermissionRoleController extends Controller
      */
     public function index()
     {
-        //
+        $campaigns = Campaign::paginate(15); // Campaign::with('hits')->paginate(15);
+
+        foreach ($campaigns as $campaign) {
+            $campaign->hits = Hit::hitCount($campaign->id);
+        }
+
+        return view('campaign.index', compact('campaigns'));
     }
 
     /**
@@ -41,10 +47,10 @@ class PermissionRoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PermissionRole  $permissionRole
+     * @param  \App\Models\CertificationType  $certificationType
      * @return \Illuminate\Http\Response
      */
-    public function show(PermissionRole $permissionRole)
+    public function show(CertificationType $certificationType)
     {
         //
     }
@@ -52,10 +58,10 @@ class PermissionRoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PermissionRole  $permissionRole
+     * @param  \App\Models\CertificationType  $certificationType
      * @return \Illuminate\Http\Response
      */
-    public function edit(PermissionRole $permissionRole)
+    public function edit(CertificationType $certificationType)
     {
         //
     }
@@ -64,10 +70,10 @@ class PermissionRoleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PermissionRole  $permissionRole
+     * @param  \App\Models\CertificationType  $certificationType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PermissionRole $permissionRole)
+    public function update(Request $request, CertificationType $certificationType)
     {
         //
     }
@@ -75,10 +81,10 @@ class PermissionRoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PermissionRole  $permissionRole
+     * @param  \App\Models\CertificationType  $certificationType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PermissionRole $permissionRole)
+    public function destroy(CertificationType $certificationType)
     {
         //
     }

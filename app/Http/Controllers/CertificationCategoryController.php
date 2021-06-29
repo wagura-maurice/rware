@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hit;
 use Illuminate\Http\Request;
+use App\Models\CertificationCategory;
 
-class HitController extends Controller
+class CertificationCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,13 @@ class HitController extends Controller
      */
     public function index()
     {
-        //
+        $campaigns = Campaign::paginate(15); // Campaign::with('hits')->paginate(15);
+
+        foreach ($campaigns as $campaign) {
+            $campaign->hits = Hit::hitCount($campaign->id);
+        }
+
+        return view('campaign.index', compact('campaigns'));
     }
 
     /**
@@ -41,10 +47,10 @@ class HitController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Hit  $hit
+     * @param  \App\Models\CertificationCategory  $certificationCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(Hit $hit)
+    public function show(CertificationCategory $certificationCategory)
     {
         //
     }
@@ -52,10 +58,10 @@ class HitController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Hit  $hit
+     * @param  \App\Models\CertificationCategory  $certificationCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(Hit $hit)
+    public function edit(CertificationCategory $certificationCategory)
     {
         //
     }
@@ -64,10 +70,10 @@ class HitController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Hit  $hit
+     * @param  \App\Models\CertificationCategory  $certificationCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Hit $hit)
+    public function update(Request $request, CertificationCategory $certificationCategory)
     {
         //
     }
@@ -75,10 +81,10 @@ class HitController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Hit  $hit
+     * @param  \App\Models\CertificationCategory  $certificationCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Hit $hit)
+    public function destroy(CertificationCategory $certificationCategory)
     {
         //
     }

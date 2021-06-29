@@ -10,7 +10,7 @@ class PermissionRole extends Model
 {
     use HasFactory, LogsActivity;
 
-    const ACTIVE = 1;
+    const ACTIVE   = 1;
     const INACTIVE = 0;
 
     protected $table = 'permission_role';

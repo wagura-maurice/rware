@@ -10,7 +10,7 @@ class Permission extends Model
 {
     use HasFactory, LogsActivity;
 
-    const ACTIVE = 1;
+    const ACTIVE   = 1;
     const INACTIVE = 0;
 
     protected $fillable = [

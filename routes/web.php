@@ -17,11 +17,20 @@ Route::get('/', function () {
     return redirect(route('login'));
 });
 
-Route::get('/{id}/preview', 'CampaignController@preview')->name('campaign.preview');
+// Lipa na Mpesa Online Transactions
+Route::post('lnmo', 'LnmoController@lnmo')->name('lnmo');
+Route::post('lnmo/callback', 'LnmoController@lnmoCallback')->name('lnmo.callback');
+Route::post('lnmo/query', 'LnmoController@lnmoQuery')->name('lnmo.query');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('/campaign', 'CampaignController');
+    // Applications Dashboard and other auth routes.
     Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
+    Route::resource('/certification/types', 'CertificationTypeController');
+    Route::resource('/certification/categories', 'CertificationCategoryController');
+    Route::resource('/certification/applications', 'ApplicationController');
+
+    // Tenant Client Routes
+    
 });
 
 require __DIR__ . '/auth.php';
