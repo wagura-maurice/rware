@@ -18,6 +18,16 @@ class CertificationType extends Model
         '_status'
     ];
 
+    public static $createRules = [
+        'name' => 'required|string',
+        'description' => 'nullable|string'
+    ];
+
+    public static $updateRules = [
+        'name' => 'nullable|string',
+        'description' => 'nullable|string'
+    ];
+
     public function categories()
     {
         return $this->belongsToMany(CertificationCategory::class)->withDefault();
