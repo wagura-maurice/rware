@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class RolesTableSeeder extends Seeder
+class RoleUserTableSeeder extends Seeder
 {
 
     /**
@@ -16,26 +16,32 @@ class RolesTableSeeder extends Seeder
     {
         
 
-        \DB::table('roles')->delete();
+        \DB::table('role_user')->delete();
         
-        \DB::table('roles')->insert(array (
+        \DB::table('role_user')->insert(array (
             0 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'administrator',
-                'id' => 1,
-                'name' => 'admin',
+                'role_id' => 1,
                 'updated_at' => NULL,
+                'user_id' => 1,
             ),
             1 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'tenant client',
-                'id' => 2,
-                'name' => 'tenant',
+                'role_id' => 1,
                 'updated_at' => NULL,
+                'user_id' => 2,
+            ),
+            2 => 
+            array (
+                '_status' => '1',
+                'created_at' => NULL,
+                'role_id' => 2,
+                'updated_at' => NULL,
+                'user_id' => 3,
             ),
         ));
         

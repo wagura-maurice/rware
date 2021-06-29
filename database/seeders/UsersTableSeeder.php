@@ -21,35 +21,35 @@ class UsersTableSeeder extends Seeder
         \DB::table('users')->insert(array (
             0 => 
             array (
-                'id' => 1,
-                'name' => 'Maurice Wagura',
+                'created_at' => '2021-01-01 06:36:26',
                 'email' => 'wagura465@gmail.com',
                 'email_verified_at' => NULL,
+                'id' => 1,
+                'name' => 'Maurice Wagura',
                 'password' => '$2y$10$.UQ4MIHHUGRVoeJAi.iEYOc0EOoS9ldTfj3UjPBeL4TpSccHe.dyW',
                 'remember_token' => '5umPu4E2DN8PsYsb8TaXotGwx6lsiHqxiViQFYdefxD3vrWBOnAS0i5ZmMZI',
-                'created_at' => '2021-01-01 06:36:26',
                 'updated_at' => '2021-01-01 06:36:26',
             ),
             1 => 
             array (
-                'id' => 2,
-                'name' => 'Dennis Kingori',
+                'created_at' => '2021-01-01 06:36:26',
                 'email' => 'dennisvat30@gmail.com',
                 'email_verified_at' => NULL,
+                'id' => 2,
+                'name' => 'Dennis Kingori',
                 'password' => '$2y$10$.UQ4MIHHUGRVoeJAi.iEYOc0EOoS9ldTfj3UjPBeL4TpSccHe.dyW',
                 'remember_token' => NULL,
-                'created_at' => '2021-01-01 06:36:26',
                 'updated_at' => '2021-01-01 06:36:26',
             ),
             2 => 
             array (
-                'id' => 3,
-                'name' => 'Demo Tenant',
+                'created_at' => '2021-01-01 06:36:26',
                 'email' => 'demo@example.com',
                 'email_verified_at' => NULL,
+                'id' => 3,
+                'name' => 'Demo Tenant',
                 'password' => '$2y$10$.UQ4MIHHUGRVoeJAi.iEYOc0EOoS9ldTfj3UjPBeL4TpSccHe.dyW',
-                'remember_token' => 'iQ6oVZcjt1c8jNljxg1JLupH8bByWqRfsTkQLfTksr4n7RIfsx5cTtB79mwt',
-                'created_at' => '2021-01-01 06:36:26',
+                'remember_token' => 'XOVy1rOS8gtUAq2ElUTyDnYPG5KFa4xJjotG3VBy2fxi8sLcNRks0uBGJ72z',
                 'updated_at' => '2021-01-01 06:36:26',
             ),
         ));

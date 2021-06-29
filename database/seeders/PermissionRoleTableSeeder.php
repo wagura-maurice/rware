@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class PermissionsTableSeeder extends Seeder
+class PermissionRoleTableSeeder extends Seeder
 {
 
     /**
@@ -16,151 +16,151 @@ class PermissionsTableSeeder extends Seeder
     {
         
 
-        \DB::table('permissions')->delete();
+        \DB::table('permission_role')->delete();
         
-        \DB::table('permissions')->insert(array (
+        \DB::table('permission_role')->insert(array (
             0 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'permission_create',
-                'id' => 1,
+                'permission_id' => 1,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
             1 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'permission_edit',
-                'id' => 2,
+                'permission_id' => 2,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
             2 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'permission_show',
-                'id' => 3,
+                'permission_id' => 3,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
             3 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'permission_delete',
-                'id' => 4,
+                'permission_id' => 4,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
             4 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'permission_access',
-                'id' => 5,
+                'permission_id' => 5,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
             5 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'role_create',
-                'id' => 6,
+                'permission_id' => 6,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
             6 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'role_edit',
-                'id' => 7,
+                'permission_id' => 7,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
             7 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'role_show',
-                'id' => 8,
+                'permission_id' => 8,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
             8 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'role_delete',
-                'id' => 9,
+                'permission_id' => 9,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
             9 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'role_access',
-                'id' => 10,
+                'permission_id' => 10,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
             10 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'user_management_access',
-                'id' => 11,
+                'permission_id' => 11,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
             11 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'user_create',
-                'id' => 12,
+                'permission_id' => 12,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
             12 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'user_edit',
-                'id' => 13,
+                'permission_id' => 13,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
             13 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'user_show',
-                'id' => 14,
+                'permission_id' => 14,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
             14 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'user_delete',
-                'id' => 15,
+                'permission_id' => 15,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
             15 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'user_access',
-                'id' => 16,
+                'permission_id' => 16,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
             16 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'certification_types_management_access',
-                'id' => 17,
+                'permission_id' => 17,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
             17 => 
             array (
                 '_status' => '1',
                 'created_at' => NULL,
-                'description' => 'certification_categories_management_access',
-                'id' => 18,
+                'permission_id' => 18,
+                'role_id' => 1,
                 'updated_at' => NULL,
             ),
         ));

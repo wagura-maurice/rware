@@ -1,1 +1,1 @@
-php artisan iseed settings,roles,permissions,permission_roles,users,role_users --force
+php artisan iseed settings,roles,permissions,permission_role,users,role_user --force
