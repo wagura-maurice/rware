@@ -39,13 +39,7 @@
                           scope="col"
                           class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                         >
-                          Name
-                        </th>
-                        <th
-                          scope="col"
-                          class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
-                        >
-                          Description
+                          Name / Description
                         </th>
                         <th
                           scope="col"
@@ -57,9 +51,14 @@
                           scope="col"
                           class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                         >
+                          Status
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                        >
                           Action
                         </th>
-
                       </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
@@ -71,7 +70,7 @@
                               <div class="flex-shrink-0 w-10 h-10">
                                 <img
                                   class="w-10 h-10 rounded-full"
-                                  src="https://ui-avatars.com/api/?bold=true&background=2dcea8&rounded=true&name=KG&color=f9f9f9&size=50"
+                                  src="https://ui-avatars.com/api/?bold=true&background=2dcea8&rounded=true&name={!! $data->name !!}&color=f9f9f9&size=50"
                                   alt="{!! ucwords($data->name) !!}"
                                 />
                               </div>
@@ -81,6 +80,7 @@
                               </div>
                             </div>
                           </td>
+                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{!! number_format($data->total) !!}</td>
                           <td class="px-6 py-4 whitespace-nowrap">
                             <span
                               class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"
@@ -88,10 +88,9 @@
                             {!! ucwords($data->_status ? 'active' : 'inactive') !!}
                             </span>
                           </td>
-                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{!! number_format($data->total) !!}</td>
                           <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">                         
-                          <a href="{!! route('type.destroy', $data->id) !!}" onclick="event.preventDefault(); document.getElementById('type-destroy').submit();"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-trash"></i></span></a>
-                          <form id="type-destroy" action="{!! route('type.destroy', $data->id) !!}" method="POST" style="display: none;">
+                          <a href="{!! route('types.destroy', $data->id) !!}" onclick="event.preventDefault(); document.getElementById('types-destroy').submit();"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-trash"></i></span></a>
+                          <form id="types-destroy" action="{!! route('types.destroy', $data->id) !!}" method="POST" style="display: none;">
                               @method('DELETE')
                               @csrf
                           </form>

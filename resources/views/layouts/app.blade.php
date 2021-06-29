@@ -72,12 +72,14 @@
                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Dashboard</span>
                 </a>
             </li>
+            @can('certification_types_management_access')
             <li>
                 <a href="{!! route('types.index') !!}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium transform hover:translate-x-2 transition-transform ease-in duration-200 hover:bg-gray-200 {{ trim(Route::currentRouteName()) == 'types.index' || trim(Route::currentRouteName()) == 'types.create' || trim(Route::currentRouteName()) == 'types.edit' || trim(Route::currentRouteName()) == 'types.show' ? 'bg-gray-200' : '' }} focus:shadow-outline" :class="{'justify-center': !isSidebarOpen}">
                 <span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-data"></i></span>
                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Certification Types</span>
                 </a>
             </li>
+            @endcan
             <li>
                 <a href="{!! route('categories.index') !!}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium transform hover:translate-x-2 transition-transform ease-in duration-200 hover:bg-gray-200 {{ trim(Route::currentRouteName()) == 'categories.index' || trim(Route::currentRouteName()) == 'categories.create' || trim(Route::currentRouteName()) == 'categories.edit' || trim(Route::currentRouteName()) == 'categories.show' ? 'bg-gray-200' : '' }} focus:shadow-outline" :class="{'justify-center': !isSidebarOpen}">
                 <span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-data"></i></span>

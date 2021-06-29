@@ -20,4 +20,25 @@ class CertificationCategory extends Model
         'description',
         '_status'
     ];
+
+    public static $createRules = [
+        'certification_type_id' => 'required|integer',
+        'name' => 'required|string',
+        'price' => 'required|string',
+        'period' => 'required|string',
+        'description' => 'nullable|string'
+    ];
+
+    public static $updateRules = [
+        'certification_type_id' => 'nullable|integer',
+        'name' => 'nullable|string',
+        'price' => 'nullable|string',
+        'period' => 'nullable|string',
+        'description' => 'nullable|string'
+    ];
+
+    public function categories()
+    {
+        return $this->belongsTo(CertificationType::class)->withDefault();
+    }
 }

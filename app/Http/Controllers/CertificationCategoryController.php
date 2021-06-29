@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use stdClass;
 use Illuminate\Http\Request;
 use App\Models\CertificationCategory;
+use App\Models\CertificationType;
+use Illuminate\Support\Facades\Validator;
 
 class CertificationCategoryController extends Controller
 {
@@ -14,13 +17,18 @@ class CertificationCategoryController extends Controller
      */
     public function index()
     {
-        $campaigns = Campaign::paginate(15); // Campaign::with('hits')->paginate(15);
+        $categories = new stdClass;
+        $categories->data = CertificationCategory::paginate(15);
+        $categories->template = (object) [
+            'title' => 'Certification categories',
+            'url' => (object) ['Create New', route('categories.create')]
+        ];
 
-        foreach ($campaigns as $campaign) {
-            $campaign->hits = Hit::hitCount($campaign->id);
+        foreach ($categories->data as $data) {
+            $data->total = 0;
         }
 
-        return view('campaign.index', compact('campaigns'));
+        return view('dashboard.certification.category.index', compact('categories'));
     }
 
     /**
@@ -30,7 +38,16 @@ class CertificationCategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categories = new stdClass;
+
+        $categories->template = (object) [
+            'title' => 'Enter New Certification Category Details',
+            'url' => (object) ['Back', url()->previous()]
+        ];
+
+        $categories->types = CertificationType::where(['_status' => CertificationType::ACTIVE])->get();
+
+        return view('dashboard.certification.category.create', compact('categories'));
     }
 
     /**
@@ -41,7 +58,21 @@ class CertificationCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = Validator::make($request->all(), CertificationCategory::$createRules);
+
+        try {
+            if (!$validation->fails()) { // i.e if validation passes
+                // create category
+                CertificationCategory::create($request->only('certification_type_id', 'name', 'price', 'period', 'description')) ? connectify('success', 'Certification Category ⚡️', ucwords($request->title) . ', Successfully Created') : connectify('error', 'Certification Category ⚡️', ucwords($request->title) . ', Not Created. Please Try Again.');
+            } else {
+                connectify('error', 'Certification Category ⚡️', 'Validation Not Passed!!, Please Try Again!');
+                return back()->withErrors($validation)->withInput();
+            }
+        } catch (\Exception $e) {
+            connectify('error', 'Certification Category ⚡️', $e->getMessage());
+        }
+
+        return redirect(route('categories.index'));
     }
 
     /**
@@ -86,6 +117,14 @@ class CertificationCategoryController extends Controller
      */
     public function destroy(CertificationCategory $certificationCategory)
     {
-        //
+        $name = $certificationCategory->name;
+
+        try {
+            $certificationCategory->delete() ? connectify('success', 'Certification Category ⚡️', ucwords($name) . ', Successfully Deleted') : connectify('error', 'Certification Category ⚡️', ucwords($name) . ', Not Deleted. Please Try Again.');
+        } catch (\Exception $e) {
+            connectify('error', 'Certification Category ⚡️', $e->getMessage());
+        }
+
+        return redirect(route('categories.index'));
     }
 }

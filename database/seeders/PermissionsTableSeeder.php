@@ -147,6 +147,14 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
+            16 => 
+            array (
+                'id' => 17,
+                'description' => 'table_action_access',
+                '_status' => '1',
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
         ));
         
         

@@ -13,7 +13,7 @@ class PermissionRole extends Model
     const ACTIVE   = 1;
     const INACTIVE = 0;
 
-    protected $table = 'permission_role';
+    protected $table = 'permission_roles';
 
     protected $primaryKey = 'permission_id';
 

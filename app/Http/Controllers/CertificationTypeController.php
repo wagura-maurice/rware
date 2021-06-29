@@ -59,7 +59,7 @@ class CertificationTypeController extends Controller
 
         try {
             if (!$validation->fails()) { // i.e if validation passes
-                // create campaign
+                // create type
                 CertificationType::create($request->only('name', 'description')) ? connectify('success', 'Certification Type ⚡️', ucwords($request->title) . ', Successfully Created') : connectify('error', 'Certification Type ⚡️', ucwords($request->title) . ', Not Created. Please Try Again.');
             } else {
                 connectify('error', 'Certification Type ⚡️', 'Validation Not Passed!!, Please Try Again!');
@@ -122,6 +122,6 @@ class CertificationTypeController extends Controller
             connectify('error', 'Certification Types ⚡️', $e->getMessage());
         }
 
-        return redirect(route('type.index'));
+        return redirect(route('types.index'));
     }
 }
