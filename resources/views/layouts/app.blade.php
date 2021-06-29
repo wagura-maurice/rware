@@ -67,15 +67,27 @@
         <nav class="flex-1 overflow-hidden hover:overflow-y-auto">
         <ul class="space-y-2 text-sm">
             <li>
-                <a href="{!! route('dashboard') !!}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium transform hover:translate-x-2 transition-transform ease-in duration-200 hover:bg-gray-200 {{ trim(Route::currentRouteName()) == 'dashboard' ? 'bg-gray-200' : '' }} focus:shadow-outline" :class="{'justify-center': !isSidebarOpen}">
+                <a href="{!! route('dashboard.index') !!}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium transform hover:translate-x-2 transition-transform ease-in duration-200 hover:bg-gray-200 {{ trim(Route::currentRouteName()) == 'dashboard.index' ? 'bg-gray-200' : '' }} focus:shadow-outline" :class="{'justify-center': !isSidebarOpen}">
                     <span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-desktop"></i></span>
                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="{!! route('campaign.index') !!}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium transform hover:translate-x-2 transition-transform ease-in duration-200 hover:bg-gray-200 {{ trim(Route::currentRouteName()) == 'campaign.index' || trim(Route::currentRouteName()) == 'campaign.create' ? 'bg-gray-200' : '' }} focus:shadow-outline" :class="{'justify-center': !isSidebarOpen}">
+                <a href="{!! route('types.index') !!}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium transform hover:translate-x-2 transition-transform ease-in duration-200 hover:bg-gray-200 {{ trim(Route::currentRouteName()) == 'types.index' || trim(Route::currentRouteName()) == 'types.create' || trim(Route::currentRouteName()) == 'types.edit' || trim(Route::currentRouteName()) == 'types.show' ? 'bg-gray-200' : '' }} focus:shadow-outline" :class="{'justify-center': !isSidebarOpen}">
                 <span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-data"></i></span>
-                    <span :class="{ 'lg:hidden': !isSidebarOpen }">Campaigns</span>
+                    <span :class="{ 'lg:hidden': !isSidebarOpen }">Certification Types</span>
+                </a>
+            </li>
+            <li>
+                <a href="{!! route('categories.index') !!}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium transform hover:translate-x-2 transition-transform ease-in duration-200 hover:bg-gray-200 {{ trim(Route::currentRouteName()) == 'categories.index' || trim(Route::currentRouteName()) == 'categories.create' || trim(Route::currentRouteName()) == 'categories.edit' || trim(Route::currentRouteName()) == 'categories.show' ? 'bg-gray-200' : '' }} focus:shadow-outline" :class="{'justify-center': !isSidebarOpen}">
+                <span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-data"></i></span>
+                    <span :class="{ 'lg:hidden': !isSidebarOpen }">Certification Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="{!! route('applications.index') !!}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium transform hover:translate-x-2 transition-transform ease-in duration-200 hover:bg-gray-200 {{ trim(Route::currentRouteName()) == 'applications.index' || trim(Route::currentRouteName()) == 'applications.create' || trim(Route::currentRouteName()) == 'applications.edit' || trim(Route::currentRouteName()) == 'applications.show' ? 'bg-gray-200' : '' }} focus:shadow-outline" :class="{'justify-center': !isSidebarOpen}">
+                <span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-data"></i></span>
+                    <span :class="{ 'lg:hidden': !isSidebarOpen }">Certification Applications</span>
                 </a>
             </li>
             <!-- <li>

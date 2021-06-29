@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
+use App\Models\Business;
+use App\Models\CertificationCategory;
+use App\Models\CertificationType;
+use stdClass;
+
 class DashboardController extends Controller
 {
     /**
@@ -11,8 +17,15 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        dd('rtyryt');
+        $data = new stdClass;
 
-        return view('dashboard.index');
+        $data->total = (Object) [
+            'certification_types' => CertificationType::count(),
+            'certification_categories' => CertificationCategory::count(),
+            'certified_applications' => Application::count(),
+            'businesses' => Business::count()
+        ];
+
+        return view('dashboard.index', compact('data'));
     }
 }

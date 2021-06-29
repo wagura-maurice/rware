@@ -24,7 +24,7 @@ Route::post('lnmo/query', 'LnmoController@lnmoQuery')->name('lnmo.query');
 
 Route::group(['middleware' => ['auth']], function () {
     // Applications Dashboard and other auth routes.
-    Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
     Route::resource('/certification/types', 'CertificationTypeController');
     Route::resource('/certification/categories', 'CertificationCategoryController');
     Route::resource('/certification/applications', 'ApplicationController');
