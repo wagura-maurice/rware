@@ -21,27 +21,27 @@ class RoleUserTableSeeder extends Seeder
         \DB::table('role_user')->insert(array (
             0 => 
             array (
+                'user_id' => 1,
+                'role_id' => 1,
                 '_status' => '1',
                 'created_at' => NULL,
-                'role_id' => 1,
                 'updated_at' => NULL,
-                'user_id' => 1,
             ),
             1 => 
             array (
+                'user_id' => 2,
+                'role_id' => 1,
                 '_status' => '1',
                 'created_at' => NULL,
-                'role_id' => 1,
                 'updated_at' => NULL,
-                'user_id' => 2,
             ),
             2 => 
             array (
+                'user_id' => 3,
+                'role_id' => 2,
                 '_status' => '1',
                 'created_at' => NULL,
-                'role_id' => 2,
                 'updated_at' => NULL,
-                'user_id' => 3,
             ),
         ));
         

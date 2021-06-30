@@ -21,20 +21,20 @@ class RolesTableSeeder extends Seeder
         \DB::table('roles')->insert(array (
             0 => 
             array (
-                '_status' => '1',
-                'created_at' => NULL,
-                'description' => 'administrator',
                 'id' => 1,
                 'name' => 'admin',
+                'description' => 'administrator',
+                '_status' => '1',
+                'created_at' => NULL,
                 'updated_at' => NULL,
             ),
             1 => 
             array (
-                '_status' => '1',
-                'created_at' => NULL,
-                'description' => 'tenant client',
                 'id' => 2,
                 'name' => 'tenant',
+                'description' => 'tenant client',
+                '_status' => '1',
+                'created_at' => NULL,
                 'updated_at' => NULL,
             ),
         ));
