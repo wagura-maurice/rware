@@ -37,8 +37,8 @@ class CertificationCategory extends Model
         'description' => 'nullable|string'
     ];
 
-    public function categories()
+    public function type()
     {
-        return $this->belongsTo(CertificationType::class)->withDefault();
+        return $this->belongsTo(CertificationType::class, 'certification_type_id')->withDefault();
     }
 }

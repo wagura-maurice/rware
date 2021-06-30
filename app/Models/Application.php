@@ -30,8 +30,8 @@ class Application extends Model
         'user_id'         => 'required|integer',
         'business_id'     => 'required|integer',
         'category_id'     => 'required|string',
-        'total_amount'    => 'required|string',
-        'paid_amount'     => 'required|string',
+        'total_amount'    => 'required|numeric',
+        'paid_amount'     => 'nullable|string',
         'expiration_date' => 'required|date',
         'description'     => 'nullable|string'
     ];
@@ -59,6 +59,6 @@ class Application extends Model
 
     public function category()
     {
-        return $this->belongsTo(CertificationCategory::class)->withDefault(CertificationType::class);
+        return $this->belongsTo(CertificationCategory::class)->withDefault();
     }
 }

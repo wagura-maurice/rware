@@ -47,7 +47,7 @@
                           scope="col"
                           class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                         >
-                          Price <small>(per SQ')</small>
+                          Price <small>(Sq Ft)</small>
                         </th>
                         <th
                           scope="col"

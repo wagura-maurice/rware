@@ -78,7 +78,7 @@
                             <span
                               class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"
                             >
-                            {!! ucwords($data->_status ? 'active' : 'inactive') !!}
+                            {!! ucwords($data->_status) !!}
                             </span>
                           </td>
                           <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">                         

@@ -26,6 +26,7 @@
     <div class="flex flex-col mt-6">
       <form action="{!! route('applications.applyStore') !!}" method="POST">
       @csrf
+        <input type="hidden" name="category_id" value="{!! $application->category->id !!}">
         <div class="shadow overflow-hidden sm:rounded-md">
           <div class="px-4 py-5 bg-white sm:p-6">
             <div class="grid grid-cols-6 gap-6">
@@ -41,18 +42,8 @@
               </div>
 
               <div class="col-span-6 sm:col-span-3">
-                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                <input type="text" name="name" id="name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-              </div>
-
-              <div class="col-span-6 sm:col-span-3">
-                <label for="price" class="block text-sm font-medium text-gray-700">Price <small>(per SQ')</small></label>
-                <input type="number" name="price" id="price" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" min="0" max="100000">
-              </div>
-
-              <div class="col-span-6 sm:col-span-3">
-                <label for="period" class="block text-sm font-medium text-gray-700">Period <small>(MONTHS)</small></label>
-                <input type="number" name="period" id="period" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" min="0" max="24">
+                <label for="footage" class="block text-sm font-medium text-gray-700">Footage <small>(Sq Ft)</small></label>
+                <input type="number" name="footage" id="footage" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" min="0" max="100000">
               </div>
 
               <div class="col-span-12 sm:col-span-6">

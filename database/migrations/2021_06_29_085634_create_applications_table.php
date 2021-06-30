@@ -23,6 +23,7 @@ class CreateApplicationsTable extends Migration
             $table->float('total_amount', 32)->default(0); // Total Amount to be Paid
             $table->float('paid_amount', 32)->default(0); // Total Amount Paid
             $table->date('expiration_date')->nullable(); // Mkutano itakwisha?
+            $table->text('description')->nullable();
             $table->enum('_status', [Application::PROCESSING, Application::APPROVED, Application::REJECTED])->default(Application::PROCESSING);
             
             $table->timestamps();

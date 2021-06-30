@@ -24,10 +24,6 @@ class CertificationCategoryController extends Controller
             'url' => (object) ['Create New', route('categories.create')]
         ];
 
-        foreach ($categories->data as $data) {
-            $data->total = 0;
-        }
-
         return view('dashboard.certification.category.index', compact('categories'));
     }
 

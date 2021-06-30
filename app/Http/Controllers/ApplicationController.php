@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Application;
-use App\Models\Business;
-use App\Models\CertificationCategory;
-use Illuminate\Http\Request;
 use stdClass;
+use App\Models\Business;
+use App\Models\Application;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Models\CertificationCategory;
+use Illuminate\Support\Facades\Validator;
 
 class ApplicationController extends Controller
 {
@@ -17,13 +20,14 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        /* $applications = Application::paginate(15);
+        $applications = new stdClass;
+        $applications->data = Application::with(['category.type', 'business'])->paginate(15);
+        $applications->template = (object) [
+            'title' => 'Certification Applications',
+            'url' => (object) ['Categories', route('categories.index')]
+        ];
 
-        foreach ($campaigns as $campaign) {
-            $campaign->hits = Hit::hitCount($campaign->id);
-        }
-
-        return view('dashboard.applications.index', compact('applications')); */
+        return view('dashboard.application.index', compact('applications'));
     }
 
     /**
@@ -118,6 +122,27 @@ class ApplicationController extends Controller
      */
     public function applyStore(Request $request)
     {
-        dd($request->all());
+        $category = CertificationCategory::findOrFail($request->category_id);
+
+        $request['uniqueID']        = explode('-', Str::uuid())[0];
+        $request['user_id']         = auth()->user()->id;
+        $request['total_amount']    = $category->price * ceil($request->footage);
+        $request['expiration_date'] = Carbon::now()->addMonths($category->period)->toDateString();
+
+        $validation = Validator::make($request->all(), Application::$createRules);
+
+        try {
+            if (!$validation->fails()) { // i.e if validation passes
+                // create application
+                Application::create($request->only('uniqueID', 'user_id', 'business_id', 'category_id', 'total_amount', 'expiration_date', 'description',)) ? connectify('success', 'Application ⚡️', ucwords($request->name) . ', Successfully Created') : connectify('error', 'Application ⚡️', ucwords($request->name) . ', Not Created. Please Try Again.');
+            } else {
+                connectify('error', 'Application ⚡️', 'Validation Not Passed!!, Please Try Again!');
+                return back()->withErrors($validation)->withInput();
+            }
+        } catch (\Exception $e) {
+            connectify('error', 'Application ⚡️', $e->getMessage());
+        }
+
+        return redirect(route('applications.index'));
     }
 }

@@ -16,22 +16,16 @@ class BusinessController extends Controller
      */
     public function index()
     {
-        if(\Auth::user()->is_admin) {
-            echo 'true';
-        }
+        dd(auth()->user()->hasRole('Admin'));
 
-        /* $businesses = new stdClass;
-        // $businesses->data = ? Business::paginate(15) : Business::where('user_id', auth()->user()->id)->paginate(15);
+        $businesses = new stdClass;
+        $businesses->data = Business::paginate(15); // Business::where('user_id', auth()->user()->id)->paginate(15);
         $businesses->template = (object) [
             'title' => 'Businesses',
             'url' => (object) ['Create New', route('businesses.create')]
         ];
 
-        foreach ($businesses->data as $data) {
-            $data->total = 0;
-        }
-
-        return view('dashboard.business.index', compact('businesses')); */
+        return view('dashboard.business.index', compact('businesses'));
     }
 
     /**

@@ -23,10 +23,6 @@ class CertificationTypeController extends Controller
             'url' => (object) ['Create New', route('types.create')]
         ];
 
-        foreach ($types->data as $data) {
-            $data->total = 0;
-        }
-
         return view('dashboard.certification.type.index', compact('types'));
     }
 
