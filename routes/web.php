@@ -27,7 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
     Route::resource('/certification/types', 'CertificationTypeController')->middleware('can:Admin');
     Route::resource('/certification/categories', 'CertificationCategoryController');
-    Route::post('/certification/applications', 'ApplicationController');
+    Route::resource('/certification/applications', 'ApplicationController');
 
     // Tenant Client Routes
     
