@@ -6,7 +6,7 @@
             <h1 class="text-2xl font-semibold whitespace-nowrap">Dashboard</h1>
             <div class="space-x-2">
             <a
-              href="{!! route('applications.create') !!}"
+              href="{!! route('applications.index') !!}"
               class="inline-flex items-center justify-center px-4 py-1 space-x-1 bg-red-500 text-white rounded-md shadow hover:bg-red-600"
             > <!-- animate-bounce -->
               <span>
@@ -14,7 +14,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </span>
-              <span>NEW APPLICATION</span>
+              <span>CERTIFICATES</span>
             </a>
             </div>
           </div>

@@ -45,12 +45,6 @@
                           scope="col"
                           class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                         >
-                          Tally
-                        </th>
-                        <th
-                          scope="col"
-                          class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
-                        >
                           Status
                         </th>
                         <th
@@ -80,7 +74,6 @@
                               </div>
                             </div>
                           </td>
-                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{!! number_format($data->total) !!}</td>
                           <td class="px-6 py-4 whitespace-nowrap">
                             <span
                               class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"
@@ -89,8 +82,8 @@
                             </span>
                           </td>
                           <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">                         
-                          <a href="{!! route('types.destroy', $data->id) !!}" onclick="event.preventDefault(); document.getElementById('types-destroy').submit();"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-trash"></i></span></a>
-                          <form id="types-destroy" action="{!! route('types.destroy', $data->id) !!}" method="POST" style="display: none;">
+                          <a href="{!! route('types.destroy', $data->id) !!}" onclick="event.preventDefault(); document.getElementById('types-destroy-{!! $data->id !!}').submit();"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-trash"></i></span></a>
+                          <form id="types-destroy-{!! $data->id !!}" action="{!! route('types.destroy', $data->id) !!}" method="POST" style="display: none;">
                               @method('DELETE')
                               @csrf
                           </form>

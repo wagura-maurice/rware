@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\Business;
+use App\Models\CertificationCategory;
 use Illuminate\Http\Request;
+use stdClass;
 
 class ApplicationController extends Controller
 {
@@ -14,13 +17,13 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $applications = Application::paginate(15);
+        /* $applications = Application::paginate(15);
 
         foreach ($campaigns as $campaign) {
             $campaign->hits = Hit::hitCount($campaign->id);
         }
 
-        return view('dashboard.applications.index', compact('applications'));
+        return view('dashboard.applications.index', compact('applications')); */
     }
 
     /**
@@ -87,5 +90,34 @@ class ApplicationController extends Controller
     public function destroy(Application $application)
     {
         //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function applyCreate(CertificationCategory $category)
+    {
+        $application = new stdClass;
+        $application->category = $category;
+        $application->businesses = Business::all();
+        $application->template = (object) [
+            'title' => 'Enter New ' . strtoupper($category->name) . ' Certification Application Details',
+            'url' => (object) ['Back', url()->previous()]
+        ];
+
+        return view('dashboard.application.applyCreate', compact('application'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function applyStore(Request $request)
+    {
+        dd($request->all());
     }
 }

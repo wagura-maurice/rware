@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use stdClass;
 use App\Models\Business;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BusinessController extends Controller
 {
@@ -14,7 +16,22 @@ class BusinessController extends Controller
      */
     public function index()
     {
-        //
+        if(\Auth::user()->is_admin) {
+            echo 'true';
+        }
+
+        /* $businesses = new stdClass;
+        // $businesses->data = ? Business::paginate(15) : Business::where('user_id', auth()->user()->id)->paginate(15);
+        $businesses->template = (object) [
+            'title' => 'Businesses',
+            'url' => (object) ['Create New', route('businesses.create')]
+        ];
+
+        foreach ($businesses->data as $data) {
+            $data->total = 0;
+        }
+
+        return view('dashboard.business.index', compact('businesses')); */
     }
 
     /**
@@ -24,7 +41,14 @@ class BusinessController extends Controller
      */
     public function create()
     {
-        //
+        $business = new stdClass;
+
+        $business->template = (object) [
+            'title' => 'Enter New Business Details',
+            'url' => (object) ['Back', url()->previous()]
+        ];
+
+        return view('dashboard.business.create', compact('business'));
     }
 
     /**
@@ -35,7 +59,22 @@ class BusinessController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request['user_id'] = auth()->user()->id;
+        $validation = Validator::make($request->all(), Business::$createRules);
+
+        try {
+            if (!$validation->fails()) { // i.e if validation passes
+                // create business
+                Business::create($request->only('user_id', 'name', 'description')) ? connectify('success', 'Business ⚡️', ucwords($request->name) . ', Successfully Created') : connectify('error', 'Business ⚡️', ucwords($request->name) . ', Not Created. Please Try Again.');
+            } else {
+                connectify('error', 'Business ⚡️', 'Validation Not Passed!!, Please Try Again!');
+                return back()->withErrors($validation)->withInput();
+            }
+        } catch (\Exception $e) {
+            connectify('error', 'Business ⚡️', $e->getMessage());
+        }
+
+        return redirect(route('businesses.index'));
     }
 
     /**
@@ -80,6 +119,13 @@ class BusinessController extends Controller
      */
     public function destroy(Business $business)
     {
-        //
+        try {
+            $name = $business->name;
+            $business->user_id === auth()->user()->id ? ($business->delete() ? connectify('success', 'Business ⚡️', ucwords($name) . ', Successfully Deleted') : connectify('error', 'Business ⚡️', ucwords($name) . ', Not Deleted. Please Try Again.')) : abort(403);
+        } catch (\Exception $e) {
+            connectify('error', 'Business ⚡️', $e->getMessage());
+        }
+
+        return redirect(route('businesses.index'));
     }
 }

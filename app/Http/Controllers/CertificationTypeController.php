@@ -60,7 +60,7 @@ class CertificationTypeController extends Controller
         try {
             if (!$validation->fails()) { // i.e if validation passes
                 // create type
-                CertificationType::create($request->only('name', 'description')) ? connectify('success', 'Certification Type ⚡️', ucwords($request->title) . ', Successfully Created') : connectify('error', 'Certification Type ⚡️', ucwords($request->title) . ', Not Created. Please Try Again.');
+                CertificationType::create($request->only('name', 'description')) ? connectify('success', 'Certification Type ⚡️', ucwords($request->name) . ', Successfully Created') : connectify('error', 'Certification Type ⚡️', ucwords($request->name) . ', Not Created. Please Try Again.');
             } else {
                 connectify('error', 'Certification Type ⚡️', 'Validation Not Passed!!, Please Try Again!');
                 return back()->withErrors($validation)->withInput();
@@ -112,12 +112,11 @@ class CertificationTypeController extends Controller
      * @param  \App\Models\CertificationType  $certificationType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CertificationType $certificationType)
+    public function destroy(CertificationType $type)
     {
-        $name = $certificationType->name;
-
         try {
-            $certificationType->delete() ? connectify('success', 'Certification Types ⚡️', ucwords($name) . ', Successfully Deleted') : connectify('error', 'Certification Types ⚡️', ucwords($name) . ', Not Deleted. Please Try Again.');
+            $name = $type->name;
+            $type->delete() ? connectify('success', 'Certification Types ⚡️', ucwords($name) . ', Successfully Deleted') : connectify('error', 'Certification Types ⚡️', ucwords($name) . ', Not Deleted. Please Try Again.');
         } catch (\Exception $e) {
             connectify('error', 'Certification Types ⚡️', $e->getMessage());
         }

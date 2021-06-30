@@ -115,12 +115,11 @@ class CertificationCategoryController extends Controller
      * @param  \App\Models\CertificationCategory  $certificationCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CertificationCategory $certificationCategory)
+    public function destroy(CertificationCategory $category)
     {
-        $name = $certificationCategory->name;
-
         try {
-            $certificationCategory->delete() ? connectify('success', 'Certification Category ⚡️', ucwords($name) . ', Successfully Deleted') : connectify('error', 'Certification Category ⚡️', ucwords($name) . ', Not Deleted. Please Try Again.');
+            $name = $category->name;
+            $category->delete() ? connectify('success', 'Certification Category ⚡️', ucwords($name) . ', Successfully Deleted') : connectify('error', 'Certification Category ⚡️', ucwords($name) . ', Not Deleted. Please Try Again.');
         } catch (\Exception $e) {
             connectify('error', 'Certification Category ⚡️', $e->getMessage());
         }

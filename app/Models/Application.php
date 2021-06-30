@@ -21,7 +21,30 @@ class Application extends Model
         'total_amount',
         'paid_amount',
         'expiration_date',
+        'description',
         '_status'
+    ];
+
+    public static $createRules = [
+        'uniqueID'        => 'required|string',
+        'user_id'         => 'required|integer',
+        'business_id'     => 'required|integer',
+        'category_id'     => 'required|string',
+        'total_amount'    => 'required|string',
+        'paid_amount'     => 'required|string',
+        'expiration_date' => 'required|date',
+        'description'     => 'nullable|string'
+    ];
+
+    public static $updateRules = [
+        'uniqueID'        => 'nullable|string',
+        'user_id'         => 'nullable|integer',
+        'business_id'     => 'nullable|integer',
+        'category_id'     => 'nullable|string',
+        'total_amount'    => 'nullable|string',
+        'paid_amount'     => 'nullable|string',
+        'expiration_date' => 'nullable|date',
+        'description'     => 'nullable|string'
     ];
 
     public function user()
