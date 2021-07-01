@@ -127,7 +127,7 @@ class LnmoController extends Controller
      * @return json respone for payment detials i.e transcation code and timestamps e.t.c
      */
     public function transaction(Request $request)
-    {
+    {        
         // transactions endpoint provided by service provider.
         $endpoint = $this->baseURL . '/mpesa/stkpush/v1/processrequest';
         // data to be sent for processing.
@@ -140,12 +140,14 @@ class LnmoController extends Controller
             'PartyA'            => '254' . substr($request->phoneNumber, -9), // supports translations in KENYA only!!
             'PartyB'            => $this->shortCode,
             'PhoneNumber'       => '254' . substr($request->phoneNumber, -9), // supports translations in KENYA only!!
-            'CallBackURL'       => route('mpesa.lnmo.callback'),
+            'CallBackURL'       => route('lnmo.callback'),
             'AccountReference'  => $request->reference,
             'TransactionDesc'   => $request->reference . ' LNMO STK Push Transaction'
         ]);
         // send data for processing
         $response = $this->submit($endpoint, $data);
+
+        dd($response);
 
         try {
             // save transaction details if response is valid

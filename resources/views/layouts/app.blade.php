@@ -353,5 +353,6 @@
     </script>
     @include('notify::messages')
     @notifyJs
+    @stack('scripts')
     </body>
 </html>

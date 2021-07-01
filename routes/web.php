@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 // Lipa na Mpesa Online Transactions
-Route::post('lnmo', 'LnmoController@lnmo')->name('lnmo');
+Route::post('lnmo/transaction', 'LnmoController@transaction')->name('lnmo.transaction');
 Route::post('lnmo/callback', 'LnmoController@lnmoCallback')->name('lnmo.callback');
 Route::post('lnmo/query', 'LnmoController@lnmoQuery')->name('lnmo.query');
 
