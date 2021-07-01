@@ -145,4 +145,18 @@ class ApplicationController extends Controller
 
         return redirect(route('applications.index'));
     }
+
+    public function applyPayment(Application $application)
+    {
+        dd($application);
+
+        return view('dashboard.application.applyPayment', compact('application'));
+    }
+
+    public function applyPrint(Application $application)
+    {
+        dd($application);
+
+        return view('dashboard.application.applyPrint', compact('application'));
+    }
 }

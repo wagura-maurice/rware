@@ -37,6 +37,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/certification/applications/destroy/{application}', 'ApplicationController@destroy')->name('applications.destroy')->middleware('can:certification_applications_access');
     Route::get('/certification/applications/apply/create/{category}', 'ApplicationController@applyCreate')->name('applications.applyCreate');
     Route::post('/certification/applications/apply/store', 'ApplicationController@applyStore')->name('applications.applyStore');
+    Route::get('/certification/applications/apply/payment/{application}', 'ApplicationController@applyPayment')->name('applications.applyPayment');
+    Route::get('/certification/applications/apply/print/{application}', 'ApplicationController@applyPrint')->name('applications.applyPrint');
     // businesses routes
     // Route::resource('/businesses', 'BusinessController');
     Route::get('/businesses/index', 'BusinessController@index')->name('businesses.index');

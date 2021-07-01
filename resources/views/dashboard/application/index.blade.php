@@ -117,7 +117,12 @@
                             </span>
                           </td>
                           <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                            <a href="{!! route('applications.applyCreate', $data->id) !!}" target="_blank"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-share"></i></span></a>                     
+                            @if($data->_status == \App\Models\Application::PROCESSING && $data->paid_amount < $data->total_amount)
+                              <a href="{!! route('applications.applyPayment', $data->id) !!}" target="_blank"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-message-alt-check"></i></span></a>
+                            @endif
+                            @if($data->_status == \App\Models\Application::APPROVED)
+                              <a href="{!! route('applications.applyPrint', $data->id) !!}" target="_blank"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-printer"></i></span></a>
+                            @endif               
                             <a href="{!! route('applications.destroy', $data->id) !!}" onclick="event.preventDefault(); document.getElementById('applications-destroy-{!! $data->id !!}').submit();"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-trash"></i></span></a>
                             <form id="applications-destroy-{!! $data->id !!}" action="{!! route('applications.destroy', $data->id) !!}" method="POST" style="display: none;">
                               @method('DELETE')

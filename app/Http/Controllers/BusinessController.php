@@ -16,8 +16,6 @@ class BusinessController extends Controller
      */
     public function index()
     {
-        dd(auth()->user()->hasRole('Admin'));
-
         $businesses = new stdClass;
         $businesses->data = Business::paginate(15); // Business::where('user_id', auth()->user()->id)->paginate(15);
         $businesses->template = (object) [
