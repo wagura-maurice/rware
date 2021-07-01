@@ -47,6 +47,13 @@ class Application extends Model
         'description'     => 'nullable|string'
     ];
 
+    public static $paymentRules = [
+        'short_code'       => 'required|string',
+        'account_number'   => 'required|string',
+        'amount'           => 'required|string',
+        'transaction_code' => 'required|string'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class)->withDefault();

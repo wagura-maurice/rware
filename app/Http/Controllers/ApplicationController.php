@@ -93,7 +93,14 @@ class ApplicationController extends Controller
      */
     public function destroy(Application $application)
     {
-        //
+        try {
+            $serial = $application->uniqueID;
+            $application->delete() ? connectify('success', 'Certification Applications ⚡️', strtoupper($serial) . ', Successfully Deleted') : connectify('error', 'Certification Applications ⚡️', strtoupper($serial) . ', Not Deleted. Please Try Again.');
+        } catch (\Exception $e) {
+            connectify('error', 'Certification Applications ⚡️', $e->getMessage());
+        }
+
+        return redirect(route('applications.index'));
     }
 
     /**
@@ -134,7 +141,7 @@ class ApplicationController extends Controller
         try {
             if (!$validation->fails()) { // i.e if validation passes
                 // create application
-                Application::create($request->only('uniqueID', 'user_id', 'business_id', 'category_id', 'total_amount', 'expiration_date', 'description',)) ? connectify('success', 'Application ⚡️', ucwords($request->name) . ', Successfully Created') : connectify('error', 'Application ⚡️', ucwords($request->name) . ', Not Created. Please Try Again.');
+                Application::create($request->only('uniqueID', 'user_id', 'business_id', 'category_id', 'total_amount', 'expiration_date', 'description')) ? connectify('success', 'Application ⚡️', strtoupper($request->uniqueID) . ', Successfully Created') : connectify('error', 'Application ⚡️', strtoupper($request->uniqueID) . ', Not Created. Please Try Again.');
             } else {
                 connectify('error', 'Application ⚡️', 'Validation Not Passed!!, Please Try Again!');
                 return back()->withErrors($validation)->withInput();
@@ -148,9 +155,36 @@ class ApplicationController extends Controller
 
     public function applyPayment(Application $application)
     {
-        dd($application);
+        $application->template = (object) [
+            'title' => 'Enter Certification ' . strtoupper($application->uniqueID) . ' Payment Details',
+            'url' => (object) ['Back', url()->previous()]
+        ];
 
         return view('dashboard.application.applyPayment', compact('application'));
+    }
+
+    public function applyProcessPayment(Request $request)
+    {
+        $validation = Validator::make($request->all(), Application::$paymentRules);
+
+        try {
+            if (!$validation->fails()) { // i.e if validation passes
+                // get application
+                $application = Application::where('uniqueID', $request->account_number)->first();
+                // update application status
+                $application->paid_amount = (int) preg_replace("/[^0-9\.]/", "", $request->amount);
+                $application->_status     = Application::APPROVED;
+
+                $application->save() ? connectify('success', 'Application ⚡️', strtoupper($application->uniqueID) . ', Successfully Paid') : connectify('error', 'Application ⚡️', strtoupper($application->uniqueID) . ', Not Paid. Please Try Again.');
+            } else {
+                connectify('error', 'Application ⚡️', 'Validation Not Passed!!, Please Try Again!');
+                return back()->withErrors($validation)->withInput();
+            }
+        } catch (\Exception $e) {
+            connectify('error', 'Application ⚡️', $e->getMessage());
+        }
+
+        return redirect(route('applications.index'));
     }
 
     public function applyPrint(Application $application)

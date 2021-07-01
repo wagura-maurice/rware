@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/certification/applications/apply/create/{category}', 'ApplicationController@applyCreate')->name('applications.applyCreate');
     Route::post('/certification/applications/apply/store', 'ApplicationController@applyStore')->name('applications.applyStore');
     Route::get('/certification/applications/apply/payment/{application}', 'ApplicationController@applyPayment')->name('applications.applyPayment');
+    Route::post('/certification/applications/apply/process/payment', 'ApplicationController@applyProcessPayment')->name('applications.applyProcessPayment');
     Route::get('/certification/applications/apply/print/{application}', 'ApplicationController@applyPrint')->name('applications.applyPrint');
     // businesses routes
     // Route::resource('/businesses', 'BusinessController');
