@@ -5,10 +5,10 @@ namespace Deployer;
 require 'recipe/laravel.php';
 
 // Project name
-set('application', 'bebing');
+set('application', 'rware');
 
 // Project repository
-set('repository', 'git@github.com:wagura-maurice/bebing.git');
+set('repository', 'git@github.com:wagura-maurice/rware.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true);
@@ -54,7 +54,7 @@ task('fanya:mambo', function () {
     // optimize config and cache
     run('{{bin/php}} {{release_path}}/artisan optimize');
     // Run database migrations
-    run('{{bin/php}} {{release_path}}/artisan migrate:fresh --seed --force');
+    // run('{{bin/php}} {{release_path}}/artisan migrate:fresh --seed --force');
     // serve the app up
     run('{{bin/php}} {{release_path}}/artisan up');
 })->once();
