@@ -86,7 +86,8 @@
 
                 @auth
                     <div class="links">
-                        <a href="https://laravel.com/docs">Docs</a>
+                        <a href="{!! route('categories.index') !!}">Certificates</a>
+                        <a href="{!! route('applications.index') !!}">Applications</a>
                     </div>
                 @endauth
             </div>

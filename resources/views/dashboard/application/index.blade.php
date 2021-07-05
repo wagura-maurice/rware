@@ -141,7 +141,7 @@
                               <a href="{!! route('applications.applyPayment', $data->id) !!}" target="_blank"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-message-alt-check"></i></span></a>
                             @endif
                             @if($data->_status == \App\Models\Application::APPROVED)
-                              <a href="{!! route('applications.applyPrint', $data->id) !!}" target="_blank"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-printer"></i></span></a>
+                              <a href="{!! route('applications.applyPrint', $data->id) !!}"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-printer"></i></span></a>
                             @endif
                             @can('certification_applications_delete')             
                               <a href="{!! route('applications.destroy', $data->id) !!}" onclick="event.preventDefault(); document.getElementById('applications-destroy-{!! $data->id !!}').submit();"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-trash"></i></span></a>
