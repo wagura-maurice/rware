@@ -18,7 +18,7 @@ class CertificationCategoryController extends Controller
     public function index()
     {
         $categories = new stdClass;
-        $categories->data = CertificationCategory::paginate(15);
+        $categories->data = CertificationCategory::with('type')->paginate(15);
         $categories->template = (object) [
             'title' => 'Certification categories',
             'url' => (object) ['Create New', route('categories.create')]

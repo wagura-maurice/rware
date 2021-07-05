@@ -47,6 +47,12 @@
                           scope="col"
                           class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                         >
+                          Type
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                        >
                           Price <small>(Sq Ft)</small>
                         </th>
                         <th
@@ -88,6 +94,7 @@
                               </div>
                             </div>
                           </td>
+                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{!! ucwords($data->type->name) !!}</td>
                           <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">KSH. {!! number_format($data->price, 2) !!}</td>
                           <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{!! number_format($data->period) !!}</td>
                           <td class="px-6 py-4 whitespace-nowrap">

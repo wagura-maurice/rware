@@ -171,10 +171,11 @@ class ApplicationController extends Controller
         try {
             if (!$validation->fails()) { // i.e if validation passes
                 // get application
-                $application = Application::where('uniqueID', $request->account_number)->first();
+                $application = Application::where('uniqueID', $request->account_number)->with('category')->first();
                 // update application status
-                $application->paid_amount = (int) preg_replace("/[^0-9\.]/", "", $request->amount);
-                $application->_status     = Application::APPROVED;
+                $application->paid_amount     = (int) preg_replace("/[^0-9\.]/", "", $request->amount);
+                $application->expiration_date = Carbon::now()->addMonths($application->category->period)->toDateString();
+                $application->_status         = Application::APPROVED;
 
                 $application->save() ? connectify('success', 'Application ⚡️', strtoupper($application->uniqueID) . ', Successfully Paid') : connectify('error', 'Application ⚡️', strtoupper($application->uniqueID) . ', Not Paid. Please Try Again.');
             } else {
