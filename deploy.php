@@ -54,26 +54,7 @@ task('fanya:mambo', function () {
     // optimize config and cache
     run('{{bin/php}} {{release_path}}/artisan optimize');
     // Run database migrations
-    // run('{{bin/php}} {{release_path}}/artisan migrate:fresh --seed --force');
-    // sync old database to new database
-    /* run('{{bin/php}} {{release_path}}/artisan sync:farmerOrganization');
-    run('{{bin/php}} {{release_path}}/artisan sync:farmer');
-    run('{{bin/php}} {{release_path}}/artisan sync:cropReport --tbl=maize_reports');
-    run('{{bin/php}} {{release_path}}/artisan sync:cropReport --tbl=beans_reports');
-    run('{{bin/php}} {{release_path}}/artisan sync:cropReport --tbl=green_grams_reports');
-    run('{{bin/php}} {{release_path}}/artisan sync:cropReport --tbl=black_eyed_beans_reports');
-    run('{{bin/php}} {{release_path}}/artisan sync:cropReport --tbl=nerica_rice_reports');
-    run('{{bin/php}} {{release_path}}/artisan sync:cropReport --tbl=rice_reports');
-    run('{{bin/php}} {{release_path}}/artisan sync:cropReport --tbl=pigeon_peas_reports');
-    run('{{bin/php}} {{release_path}}/artisan sync:cropReport --tbl=soya_beans_reports');
-    run('{{bin/php}} {{release_path}}/artisan sync:plantingInput --tbl=maize_inputs');
-    run('{{bin/php}} {{release_path}}/artisan sync:plantingInput --tbl=beans_inputs');
-    run('{{bin/php}} {{release_path}}/artisan sync:plantingInput --tbl=green_grams_inputs');
-    run('{{bin/php}} {{release_path}}/artisan sync:plantingInput --tbl=black_eyed_beans_inputs');
-    run('{{bin/php}} {{release_path}}/artisan sync:plantingInput --tbl=nerica_rice_inputs');
-    run('{{bin/php}} {{release_path}}/artisan sync:plantingInput --tbl=rice_inputs');
-    run('{{bin/php}} {{release_path}}/artisan sync:plantingInput --tbl=pigeon_peas_inputs');
-    run('{{bin/php}} {{release_path}}/artisan sync:plantingInput --tbl=soya_beans_inputs'); */
+    run('{{bin/php}} {{release_path}}/artisan migrate:fresh --seed --force');
     // serve the app up
     run('{{bin/php}} {{release_path}}/artisan up');
 })->once();
