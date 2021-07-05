@@ -22,7 +22,7 @@ Route::post('lnmo/transaction', 'LnmoController@transaction')->name('lnmo.transa
 Route::post('lnmo/callback', 'LnmoController@lnmoCallback')->name('lnmo.callback');
 Route::post('lnmo/query', 'LnmoController@lnmoQuery')->name('lnmo.query');
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
     // Applications Dashboard and other auth routes.
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
     // certification types routes
