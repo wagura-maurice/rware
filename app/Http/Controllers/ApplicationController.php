@@ -189,8 +189,18 @@ class ApplicationController extends Controller
 
     public function applyPrint(Application $application)
     {
-        dd($application);
+        // dd($application);
 
-        return view('dashboard.application.applyPrint', compact('application'));
+        // return view('dashboard.application.applyPrint', compact('application'));
+
+        $html_content = '<h1>Generate a PDF using TCPDF in laravel </h1>
+         <h4>by<br/>Learn Infinity</h4>';
+      
+ 
+        PDF::SetTitle('Sample PDF');
+        PDF::AddPage();
+        PDF::writeHTML($html_content, true, false, true, false, '');
+ 
+        PDF::Output(uniqid().'_SamplePDF.pdf', 'D');
     }
 }
