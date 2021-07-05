@@ -202,7 +202,7 @@ class ApplicationController extends Controller
             
             return $pdf->download($fileName . '.pdf');
         } catch (\Throwable $th) {
-            // throw $th->getMessage();
+            dd($th->getMessage());
         }
     }
 }
