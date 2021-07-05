@@ -10,13 +10,23 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, HasGravatar, LogsActivity;
 
     const PENDING = 'pending';
     const ACTIVE = 'active';
     const INACTIVE = 'inactive';
+
+    // Model Events Logging configurations
+    protected static $logName = 'Users';
+    protected static $logFillable = true;
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "This User has been {$eventName}";
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -51,14 +61,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected static $logName = 'Users';
-    protected static $logFillable = true;
-    protected static $logOnlyDirty = true;
-
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        return "This User has been {$eventName}";
-    }
+    /**
+     * The attributes to be appended on each retrieval.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'isAdmin',
+        'isTenant'
+    ];
 
     public static $createRules = [
         'name' => 'nullable|string',
@@ -78,20 +89,12 @@ class User extends Authenticatable
         'role' => 'nullable|string'
     ];
 
-    public function Campaigns()
-    {
-        return $this->belongsToMany('App\Models\Campaign')->withTimestamps();
+    public function getIsAdminAttribute() {
+        return auth()->user()->roles->contains('name', 'admin');
     }
 
-    public function assignCampaign($Campaign)
-    {
-        // return $this->Campaigns()->save($Campaign);
-        return $this->Campaigns()->sync($Campaign, false);
-    }
-
-    public function unassignCampaign($role)
-    {
-        return $this->Campaigns()->detach($role);
+    public function getIsTenantAttribute() {
+        return auth()->user()->roles->contains('name', 'tenant');
     }
 
     public function roles()

@@ -99,7 +99,7 @@
                           </td>
                           <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                             <a href="{!! route('applications.applyCreate', $data->id) !!}" target="_blank"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-plus"></i></span></a>
-                          @can('certification_categories_create')                     
+                          @can('certification_categories_delete')                     
                             <a href="{!! route('categories.destroy', $data->id) !!}" onclick="event.preventDefault(); document.getElementById('categories-destroy').submit();"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-trash"></i></span></a>
                             <form id="categories-destroy" action="{!! route('categories.destroy', $data->id) !!}" method="POST" style="display: none;">
                                 @method('DELETE')

@@ -45,6 +45,12 @@
                           scope="col"
                           class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                         >
+                          Owner
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                        >
                           Status
                         </th>
                         <th
@@ -75,18 +81,34 @@
                             </div>
                           </td>
                           <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                              <div class="flex-shrink-0 w-10 h-10">
+                                <img
+                                  class="w-10 h-10 rounded-full"
+                                  src="{!! $data->user->gravatar !!}"
+                                  alt="{!! ucwords($data->user->name) !!}"
+                                />
+                              </div>
+                              <div class="ml-4">
+                                <div class="text-sm font-medium text-gray-900">{!! ucwords($data->user->name) !!}</div>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="px-6 py-4 whitespace-nowrap">
                             <span
                               class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"
                             >
                             {!! ucwords($data->_status) !!}
                             </span>
                           </td>
-                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">                         
-                          <a href="{!! route('businesses.destroy', $data->id) !!}" onclick="event.preventDefault(); document.getElementById('businesses-destroy-{!! $data->id !!}').submit();"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-trash"></i></span></a>
-                          <form id="businesses-destroy-{!! $data->id !!}" action="{!! route('businesses.destroy', $data->id) !!}" method="POST" style="display: none;">
-                              @method('DELETE')
-                              @csrf
-                          </form>
+                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                          @can('businesses_delete')                     
+                            <a href="{!! route('businesses.destroy', $data->id) !!}" onclick="event.preventDefault(); document.getElementById('businesses-destroy-{!! $data->id !!}').submit();"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-trash"></i></span></a>
+                            <form id="businesses-destroy-{!! $data->id !!}" action="{!! route('businesses.destroy', $data->id) !!}" method="POST" style="display: none;">
+                                @method('DELETE')
+                                @csrf
+                            </form>
+                          @endcan
                           </td>
                         </tr>
                         @endforeach

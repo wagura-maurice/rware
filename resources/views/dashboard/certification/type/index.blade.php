@@ -81,12 +81,14 @@
                             {!! ucwords($data->_status ? 'active' : 'inactive') !!}
                             </span>
                           </td>
-                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">                         
-                          <a href="{!! route('types.destroy', $data->id) !!}" onclick="event.preventDefault(); document.getElementById('types-destroy-{!! $data->id !!}').submit();"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-trash"></i></span></a>
-                          <form id="types-destroy-{!! $data->id !!}" action="{!! route('types.destroy', $data->id) !!}" method="POST" style="display: none;">
-                              @method('DELETE')
-                              @csrf
-                          </form>
+                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                          @can('certification_types_delete')                       
+                            <a href="{!! route('types.destroy', $data->id) !!}" onclick="event.preventDefault(); document.getElementById('types-destroy-{!! $data->id !!}').submit();"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-trash"></i></span></a>
+                            <form id="types-destroy-{!! $data->id !!}" action="{!! route('types.destroy', $data->id) !!}" method="POST" style="display: none;">
+                                @method('DELETE')
+                                @csrf
+                            </form>
+                          @endcan
                           </td>
                         </tr>
                         @endforeach

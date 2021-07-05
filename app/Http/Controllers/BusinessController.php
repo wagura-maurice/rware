@@ -17,7 +17,7 @@ class BusinessController extends Controller
     public function index()
     {
         $businesses = new stdClass;
-        $businesses->data = Business::paginate(15); // Business::where('user_id', auth()->user()->id)->paginate(15);
+        $businesses->data = auth()->user()->isAdmin ? Business::with('user')->paginate(15) : Business::where('user_id', auth()->user()->id)->with('user')->paginate(15);
         $businesses->template = (object) [
             'title' => 'Businesses',
             'url' => (object) ['Create New', route('businesses.create')]

@@ -21,7 +21,7 @@ class ApplicationController extends Controller
     public function index()
     {
         $applications = new stdClass;
-        $applications->data = Application::with(['category.type', 'business'])->paginate(15);
+        $applications->data = auth()->user()->isAdmin ? Application::with(['category.type', 'business', 'user'])->paginate(15) : Application::where('user_id', auth()->user()->id)->with(['category.type', 'business', 'user'])->paginate(15);
         $applications->template = (object) [
             'title' => 'Certification Applications',
             'url' => (object) ['Categories', route('categories.index')]
@@ -112,7 +112,7 @@ class ApplicationController extends Controller
     {
         $application = new stdClass;
         $application->category = $category;
-        $application->businesses = Business::all();
+        $application->businesses = auth()->user()->isAdmin ? Business::all() : Business::where('user_id', auth()->user()->id)->get();
         $application->template = (object) [
             'title' => 'Enter New ' . strtoupper($category->name) . ' Certification Application Details',
             'url' => (object) ['Back', url()->previous()]

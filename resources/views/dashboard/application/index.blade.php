@@ -57,6 +57,12 @@
                           scope="col"
                           class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                         >
+                          Applicant
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                        >
                           Cost Amount
                         </th>
                         <th
@@ -106,6 +112,20 @@
                               </div>
                             </div>
                           </td>
+                          <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                              <div class="flex-shrink-0 w-10 h-10">
+                                <img
+                                  class="w-10 h-10 rounded-full"
+                                  src="{!! $data->user->gravatar !!}"
+                                  alt="{!! ucwords($data->user->name) !!}"
+                                />
+                              </div>
+                              <div class="ml-4">
+                                <div class="text-sm font-medium text-gray-900">{!! ucwords($data->user->name) !!}</div>
+                              </div>
+                            </div>
+                          </td>
                           <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">KSH. {!! number_format($data->total_amount, 2) !!}</td>
                           <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">KSH. {!! number_format($data->paid_amount, 2) !!}</td>
                           <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{!! ucwords($data->expiration_date) !!}</td>
@@ -122,12 +142,14 @@
                             @endif
                             @if($data->_status == \App\Models\Application::APPROVED)
                               <a href="{!! route('applications.applyPrint', $data->id) !!}" target="_blank"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-printer"></i></span></a>
-                            @endif               
-                            <a href="{!! route('applications.destroy', $data->id) !!}" onclick="event.preventDefault(); document.getElementById('applications-destroy-{!! $data->id !!}').submit();"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-trash"></i></span></a>
-                            <form id="applications-destroy-{!! $data->id !!}" action="{!! route('applications.destroy', $data->id) !!}" method="POST" style="display: none;">
-                              @method('DELETE')
-                              @csrf
-                            </form>
+                            @endif
+                            @can('certification_applications_delete')             
+                              <a href="{!! route('applications.destroy', $data->id) !!}" onclick="event.preventDefault(); document.getElementById('applications-destroy-{!! $data->id !!}').submit();"><span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-trash"></i></span></a>
+                              <form id="applications-destroy-{!! $data->id !!}" action="{!! route('applications.destroy', $data->id) !!}" method="POST" style="display: none;">
+                                @method('DELETE')
+                                @csrf
+                              </form>
+                            @endcan
                           </td>
                         </tr>
                         @endforeach
