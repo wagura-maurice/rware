@@ -5,10 +5,10 @@ namespace Deployer;
 require 'recipe/laravel.php';
 
 // Project name
-set('application', 'bebing');
+set('application', 'rware');
 
 // Project repository
-set('repository', 'git@github.com:wagura-maurice/bebing.git');
+set('repository', 'git@github.com:wagura-maurice/rware.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true);
