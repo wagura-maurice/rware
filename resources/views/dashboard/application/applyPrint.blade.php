@@ -47,11 +47,11 @@
     <body>
         <div class="container">
             <div class="logo">
-                An Organization
+                {!! strtoupper(config('app.name')) !!}
             </div>
 
             <div class="marquee">
-                Certificate of Completion
+                Certificate of {!! ucwords($application->category->name) !!}
             </div>
 
             <div class="assignment">
@@ -59,12 +59,11 @@
             </div>
 
             <div class="person">
-                Joe Nathan
+                {!! ucwords($application->business->name) !!}
             </div>
 
             <div class="reason">
-                For deftly defying the laws of gravity<br/>
-                and flying high
+                For: {!! ucwords($application->description) !!}
             </div>
         </div>
     </body>

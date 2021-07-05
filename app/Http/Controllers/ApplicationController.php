@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\CertificationCategory;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 
 class ApplicationController extends Controller
@@ -191,9 +192,13 @@ class ApplicationController extends Controller
 
     public function applyPrint(Application $application)
     {
+        $application->user     = User::find($application->user_id);
+        $application->business = Business::find($application->business_id);
+        $application->category = CertificationCategory::find($application->category_id);
+
         try {
             $fileName = strtoupper(config('app.name') . ' Certificate ' . $application->uniqueID);
-            $pdf      = PDF::loadView('dashboard.application.applyPrint', $application);
+            $pdf      = PDF::loadView('dashboard.application.applyPrint', compact('application'));
             
             return $pdf->download($fileName . '.pdf');
         } catch (\Throwable $th) {
