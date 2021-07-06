@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use stdClass;
 use Illuminate\Http\Request;
-use App\Models\CertificationCategory;
 use App\Models\CertificationType;
-use Illuminate\Support\Facades\Validator;
+use App\Models\CertificationCategory;
+use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\CertificationCategoryRequest;
+use App\Repositories\CertificationCategoryRepository;
 
 class CertificationCategoryController extends Controller
 {
@@ -17,7 +18,7 @@ class CertificationCategoryController extends Controller
      */
     public function index()
     {
-        $categories = new stdClass;
+        $categories = new \stdClass;
         $categories->data = CertificationCategory::with('type')->paginate(15);
         $categories->template = (object) [
             'title' => 'Certification categories',
@@ -34,7 +35,7 @@ class CertificationCategoryController extends Controller
      */
     public function create()
     {
-        $categories = new stdClass;
+        $categories = new \stdClass;
 
         $categories->template = (object) [
             'title' => 'Enter New Certification Category Details',
@@ -52,20 +53,13 @@ class CertificationCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CertificationCategoryRequest $request, CertificationCategoryRepository $repository)
     {
-        $validation = Validator::make($request->all(), CertificationCategory::$createRules);
-
         try {
-            if (!$validation->fails()) { // i.e if validation passes
-                // create category
-                CertificationCategory::create($request->only('certification_type_id', 'name', 'price', 'period', 'description')) ? connectify('success', 'Certification Category ⚡️', ucwords($request->title) . ', Successfully Created') : connectify('error', 'Certification Category ⚡️', ucwords($request->title) . ', Not Created. Please Try Again.');
-            } else {
-                connectify('error', 'Certification Category ⚡️', 'Validation Not Passed!!, Please Try Again!');
-                return back()->withErrors($validation)->withInput();
-            }
-        } catch (\Exception $e) {
-            connectify('error', 'Certification Category ⚡️', $e->getMessage());
+            // create certificate category
+            $repository->create($request->all()) ? Alert::toast(strtoupper($request->name) . ', certificate category successfully created.' ,'success') : Alert::toast(strtoupper($request->name) . ', certificate category failed to create. please try again!', 'info');
+        } catch (\Throwable $th) {
+            Alert::toast($th->getMessage(), 'error');
         }
 
         return redirect(route('categories.index'));
@@ -114,10 +108,11 @@ class CertificationCategoryController extends Controller
     public function destroy(CertificationCategory $category)
     {
         try {
-            $name = $category->name;
-            $category->delete() ? connectify('success', 'Certification Category ⚡️', ucwords($name) . ', Successfully Deleted') : connectify('error', 'Certification Category ⚡️', ucwords($name) . ', Not Deleted. Please Try Again.');
-        } catch (\Exception $e) {
-            connectify('error', 'Certification Category ⚡️', $e->getMessage());
+            $title = $category->name;
+            // only site administrators can delete this certificate category
+            auth()->user()->isAdmin ? ($category->delete() ? Alert::toast(strtoupper($title) . ', certificate category successfully deleted.' ,'success') : Alert::toast(strtoupper($title) . ', certificate category failed to delete. please try again!', 'info')) : Alert::toast('only site administrators can delete this certificate category' ,'warning');
+        } catch (\Throwable $th) {
+            Alert::toast($th->getMessage(), 'error');
         }
 
         return redirect(route('categories.index'));

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use stdClass;
 use Illuminate\Http\Request;
 use App\Models\CertificationType;
-use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\CertificationTypeRequest;
+use App\Repositories\CertificationTypeRepository;
 
 class CertificationTypeController extends Controller
 {
@@ -16,7 +17,7 @@ class CertificationTypeController extends Controller
      */
     public function index()
     {
-        $types = new stdClass;
+        $types = new \stdClass;
         $types->data = CertificationType::paginate(15);
         $types->template = (object) [
             'title' => 'Certification Types',
@@ -33,7 +34,7 @@ class CertificationTypeController extends Controller
      */
     public function create()
     {
-        $types = new stdClass;
+        $types = new \stdClass;
 
         $types->template = (object) [
             'title' => 'Enter New Certification Type Details',
@@ -49,20 +50,13 @@ class CertificationTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CertificationTypeRequest $request, CertificationTypeRepository $repository)
     {
-        $validation = Validator::make($request->all(), CertificationType::$createRules);
-
         try {
-            if (!$validation->fails()) { // i.e if validation passes
-                // create type
-                CertificationType::create($request->only('name', 'description')) ? connectify('success', 'Certification Type ⚡️', ucwords($request->name) . ', Successfully Created') : connectify('error', 'Certification Type ⚡️', ucwords($request->name) . ', Not Created. Please Try Again.');
-            } else {
-                connectify('error', 'Certification Type ⚡️', 'Validation Not Passed!!, Please Try Again!');
-                return back()->withErrors($validation)->withInput();
-            }
-        } catch (\Exception $e) {
-            connectify('error', 'Certification Type ⚡️', $e->getMessage());
+            // create certificate type
+            $repository->create($request->all()) ? Alert::toast(strtoupper($request->name) . ', certificate type successfully created.' ,'success') : Alert::toast(strtoupper($request->name) . ', certificate type failed to create. please try again!', 'info');
+        } catch (\Throwable $th) {
+            Alert::toast($th->getMessage(), 'error');
         }
 
         return redirect(route('types.index'));
@@ -111,10 +105,11 @@ class CertificationTypeController extends Controller
     public function destroy(CertificationType $type)
     {
         try {
-            $name = $type->name;
-            $type->delete() ? connectify('success', 'Certification Types ⚡️', ucwords($name) . ', Successfully Deleted') : connectify('error', 'Certification Types ⚡️', ucwords($name) . ', Not Deleted. Please Try Again.');
-        } catch (\Exception $e) {
-            connectify('error', 'Certification Types ⚡️', $e->getMessage());
+            $title = $type->name;
+            // only site administrators can delete this certificate type
+            auth()->user()->isAdmin ? ($type->delete() ? Alert::toast(strtoupper($title) . ', certificate type successfully deleted.' ,'success') : Alert::toast(strtoupper($title) . ', certificate type failed to delete. please try again!', 'info')) : Alert::toast('only site administrators can delete this certificate type' ,'warning');
+        } catch (\Throwable $th) {
+            Alert::toast($th->getMessage(), 'error');
         }
 
         return redirect(route('types.index'));

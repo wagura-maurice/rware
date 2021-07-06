@@ -24,6 +24,7 @@
     <div class="flex flex-col mt-6">
       <form action="{!! route('businesses.store') !!}" method="POST">
       @csrf
+      <input type="hidden" name="user_id" value="{!! auth()->user()->id !!}" required readonly>
         <div class="shadow overflow-hidden sm:rounded-md">
           <div class="px-4 py-5 bg-white sm:p-6">
             <div class="grid grid-cols-6 gap-6">

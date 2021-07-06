@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use stdClass;
 use App\Models\Business;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\BusinessRequest;
+use App\Repositories\BusinessRepository;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BusinessController extends Controller
 {
@@ -16,7 +17,7 @@ class BusinessController extends Controller
      */
     public function index()
     {
-        $businesses = new stdClass;
+        $businesses = new \stdClass;
         $businesses->data = auth()->user()->isAdmin ? Business::with('user')->paginate(15) : Business::where('user_id', auth()->user()->id)->with('user')->paginate(15);
         $businesses->template = (object) [
             'title' => 'Businesses',
@@ -33,7 +34,7 @@ class BusinessController extends Controller
      */
     public function create()
     {
-        $business = new stdClass;
+        $business = new \stdClass;
 
         $business->template = (object) [
             'title' => 'Enter New Business Details',
@@ -49,21 +50,13 @@ class BusinessController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BusinessRequest $request, BusinessRepository $repository)
     {
-        $request['user_id'] = auth()->user()->id;
-        $validation = Validator::make($request->all(), Business::$createRules);
-
         try {
-            if (!$validation->fails()) { // i.e if validation passes
-                // create business
-                Business::create($request->only('user_id', 'name', 'description')) ? connectify('success', 'Business ⚡️', ucwords($request->name) . ', Successfully Created') : connectify('error', 'Business ⚡️', ucwords($request->name) . ', Not Created. Please Try Again.');
-            } else {
-                connectify('error', 'Business ⚡️', 'Validation Not Passed!!, Please Try Again!');
-                return back()->withErrors($validation)->withInput();
-            }
-        } catch (\Exception $e) {
-            connectify('error', 'Business ⚡️', $e->getMessage());
+            // create business
+            $repository->create($request->all()) ? Alert::toast(strtoupper($request->name) . ', was successfully created.' ,'success') : Alert::toast(strtoupper($request->name) . ', failed to create. please try again!', 'info');
+        } catch (\Throwable $th) {
+            Alert::toast($th->getMessage(), 'error');
         }
 
         return redirect(route('businesses.index'));
@@ -112,10 +105,11 @@ class BusinessController extends Controller
     public function destroy(Business $business)
     {
         try {
-            $name = $business->name;
-            $business->user_id === auth()->user()->id ? ($business->delete() ? connectify('success', 'Business ⚡️', ucwords($name) . ', Successfully Deleted') : connectify('error', 'Business ⚡️', ucwords($name) . ', Not Deleted. Please Try Again.')) : abort(403);
-        } catch (\Exception $e) {
-            connectify('error', 'Business ⚡️', $e->getMessage());
+            $title = $business->name;
+            // only owner can delete their business
+            $business->user_id === auth()->user()->id ? ($business->delete() ? Alert::toast(strtoupper($title) . ', successfully deleted.' ,'success') : Alert::toast(strtoupper($title) . ', failed to delete. please try again!', 'info')) : Alert::toast('only owner can delete their business' ,'warning');
+        } catch (\Throwable $th) {
+            Alert::toast($th->getMessage(), 'error');
         }
 
         return redirect(route('businesses.index'));

@@ -17,7 +17,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $data = new stdClass;
+        $data = new \stdClass;
 
         $data->total = (Object) [
             'certification_types' => CertificationType::count(),

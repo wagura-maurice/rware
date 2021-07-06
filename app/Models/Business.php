@@ -19,18 +19,6 @@ class Business extends Model
         '_status'
     ];
 
-    public static $createRules = [
-        'user_id'     => 'required|integer',
-        'name'        => 'required|string',
-        'description' => 'nullable|string'
-    ];
-
-    public static $updateRules = [
-        'user_id'     => 'nullable|integer',
-        'name'        => 'nullable|string',
-        'description' => 'nullable|string'
-    ];
-
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault();

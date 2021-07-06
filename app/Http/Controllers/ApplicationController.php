@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use PDF;
-use stdClass;
+use App\Models\User;
 use App\Models\Business;
 use App\Models\Application;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\CertificationCategory;
-use App\Models\User;
+use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\ApplicationRequest;
 use Illuminate\Support\Facades\Validator;
+use App\Repositories\ApplicationRepository;
 
 class ApplicationController extends Controller
 {
@@ -22,7 +24,7 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $applications = new stdClass;
+        $applications = new \stdClass;
         $applications->data = auth()->user()->isAdmin ? Application::with(['category.type', 'business', 'user'])->paginate(15) : Application::where('user_id', auth()->user()->id)->with(['category.type', 'business', 'user'])->paginate(15);
         $applications->template = (object) [
             'title' => 'Certification Applications',
@@ -97,9 +99,10 @@ class ApplicationController extends Controller
     {
         try {
             $serial = $application->uniqueID;
-            $application->delete() ? connectify('success', 'Certification Applications ⚡️', strtoupper($serial) . ', Successfully Deleted') : connectify('error', 'Certification Applications ⚡️', strtoupper($serial) . ', Not Deleted. Please Try Again.');
-        } catch (\Exception $e) {
-            connectify('error', 'Certification Applications ⚡️', $e->getMessage());
+
+            $application->delete() ? Alert::toast(strtoupper($serial) . ', successfully deleted.' ,'success') : Alert::toast(strtoupper($serial) . ', failed to delete. please try again!', 'info');
+        } catch (\Throwable $th) {
+            Alert::toast($th->getMessage(), 'error');
         }
 
         return redirect(route('applications.index'));
@@ -112,7 +115,7 @@ class ApplicationController extends Controller
      */
     public function applyCreate(CertificationCategory $category)
     {
-        $application = new stdClass;
+        $application = new \stdClass;
         $application->category = $category;
         $application->businesses = auth()->user()->isAdmin ? Business::all() : Business::where('user_id', auth()->user()->id)->get();
         $application->template = (object) [
@@ -129,27 +132,25 @@ class ApplicationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function applyStore(Request $request)
+    public function applyStore(Request $request, ApplicationRepository $repository)
     {
-        $category = CertificationCategory::findOrFail($request->category_id);
-
-        $request['uniqueID']        = explode('-', Str::uuid())[0];
-        $request['user_id']         = auth()->user()->id;
-        $request['total_amount']    = $category->price * ceil($request->footage);
-        $request['expiration_date'] = Carbon::now()->addMonths($category->period)->toDateString();
-
-        $validation = Validator::make($request->all(), Application::$createRules);
+        $request['category']     = CertificationCategory::findOrFail($request->category_id)->toArray();
+        $request['uniqueID']     = Str::uuid();
+        $request['user_id']      = auth()->user()->id;
+        $request['total_amount'] = $request['category']['price'] * ceil($request->footage);
 
         try {
-            if (!$validation->fails()) { // i.e if validation passes
+
+            $data = (new ApplicationRequest($request->all()))->query->all(); // Fetch Validated data only
+
+            if ($data) { // i.e if validation passes
                 // create application
-                Application::create($request->only('uniqueID', 'user_id', 'business_id', 'category_id', 'total_amount', 'expiration_date', 'description')) ? connectify('success', 'Application ⚡️', strtoupper($request->uniqueID) . ', Successfully Created') : connectify('error', 'Application ⚡️', strtoupper($request->uniqueID) . ', Not Created. Please Try Again.');
+                $repository->create($data) ? Alert::toast(strtoupper($request->uniqueID) . ', was successfully created.' ,'success') : Alert::toast(strtoupper($request->uniqueID) . ', failed to create. please try again!', 'info');
             } else {
-                connectify('error', 'Application ⚡️', 'Validation Not Passed!!, Please Try Again!');
-                return back()->withErrors($validation)->withInput();
+                Alert::toast('input data validation failed, please try again!', 'warning');
             }
-        } catch (\Exception $e) {
-            connectify('error', 'Application ⚡️', $e->getMessage());
+        } catch (\Throwable $th) {
+            Alert::toast($th->getMessage(), 'error');
         }
 
         return redirect(route('applications.index'));
@@ -173,18 +174,17 @@ class ApplicationController extends Controller
             if (!$validation->fails()) { // i.e if validation passes
                 // get application
                 $application = Application::where('uniqueID', $request->account_number)->with('category')->first();
-                // update application status
+                // scope application updates
                 $application->paid_amount     = (int) preg_replace("/[^0-9\.]/", "", $request->amount);
                 $application->expiration_date = Carbon::now()->addMonths($application->category->period)->toDateString();
                 $application->_status         = Application::APPROVED;
-
-                $application->save() ? connectify('success', 'Application ⚡️', strtoupper($application->uniqueID) . ', Successfully Paid') : connectify('error', 'Application ⚡️', strtoupper($application->uniqueID) . ', Not Paid. Please Try Again.');
+                // update application
+                $application->save() ? Alert::toast(strtoupper($application->uniqueID) . ', payment successfully.' ,'success') : Alert::toast(strtoupper($application->uniqueID) . ', payment failed. please try again!', 'info');
             } else {
-                connectify('error', 'Application ⚡️', 'Validation Not Passed!!, Please Try Again!');
-                return back()->withErrors($validation)->withInput();
+                Alert::toast('input data validation failed, please try again!', 'warning');
             }
-        } catch (\Exception $e) {
-            connectify('error', 'Application ⚡️', $e->getMessage());
+        } catch (\Throwable $th) {
+            Alert::toast($th->getMessage(), 'error');
         }
 
         return redirect(route('applications.index'));
@@ -202,7 +202,7 @@ class ApplicationController extends Controller
             
             return $pdf->download($fileName . '.pdf');
         } catch (\Throwable $th) {
-            dd($th->getMessage());
+            Alert::toast($th->getMessage(), 'error');
         }
     }
 }

@@ -25,28 +25,6 @@ class Application extends Model
         '_status'
     ];
 
-    public static $createRules = [
-        'uniqueID'        => 'required|string',
-        'user_id'         => 'required|integer',
-        'business_id'     => 'required|integer',
-        'category_id'     => 'required|string',
-        'total_amount'    => 'required|numeric',
-        'paid_amount'     => 'nullable|string',
-        'expiration_date' => 'required|date',
-        'description'     => 'nullable|string'
-    ];
-
-    public static $updateRules = [
-        'uniqueID'        => 'nullable|string',
-        'user_id'         => 'nullable|integer',
-        'business_id'     => 'nullable|integer',
-        'category_id'     => 'nullable|string',
-        'total_amount'    => 'nullable|string',
-        'paid_amount'     => 'nullable|string',
-        'expiration_date' => 'nullable|date',
-        'description'     => 'nullable|string'
-    ];
-
     public static $paymentRules = [
         'short_code'       => 'required|string',
         'account_number'   => 'required|string',
