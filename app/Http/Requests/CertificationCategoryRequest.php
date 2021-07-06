@@ -44,4 +44,20 @@ class CertificationCategoryRequest extends FormRequest
 
         return $rules;
     }
+
+    /**
+     * Customized attribute Response
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'certification_type_id' => 'enter certification type assigned to certificate',
+            'name'                  => 'enter name of certification category',
+            'price'                 => 'enter price amount of certificate per square foot',
+            'period'                => 'enter validity duration in months of certificate',
+            'description'           => 'enter small description of certification category'
+        ];
+    }
 }

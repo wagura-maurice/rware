@@ -50,4 +50,23 @@ class ApplicationRequest extends FormRequest
 
         return $rules;
     }
+
+    /**
+     * Customized attribute Response
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'uniqueID'        => 'enter a unique ID for the certificate',
+            'user_id'         => 'enter user applying for certificate',
+            'business_id'     => 'enter business applying for certificate',
+            'category_id'     => 'enter certification category of application',
+            'total_amount'    => 'enter total amount price for application processing',
+            'paid_amount'     => 'enter paid amount for application processing',
+            'expiration_date' => 'enter expiration date of application',
+            'description'     => 'enter small description of application'
+        ];
+    }
 }

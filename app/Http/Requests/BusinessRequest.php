@@ -40,4 +40,18 @@ class BusinessRequest extends FormRequest
 
         return $rules;
     }
+
+    /**
+     * Customized attribute Response
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'user_id'     => 'enter user registering the business',
+            'name'        => 'enter name of business',
+            'description' => 'enter small description of business'
+        ];
+    }
 }

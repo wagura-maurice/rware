@@ -38,4 +38,17 @@ class CertificationTypeRequest extends FormRequest
 
         return $rules;
     }
+
+    /**
+     * Customized attribute Response
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'name'        => 'enter name of certification type',
+            'description' => 'enter small description of certification type'
+        ];
+    }
 }
