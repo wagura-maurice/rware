@@ -11,7 +11,6 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
-        @notifyCss
         <link rel="stylesheet" href="{!! asset('css/app.css') !!}">
         <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" />
     </head>
@@ -341,7 +340,7 @@
         }
       }
     </script>
-    @notifyJs
     @stack('scripts')
+    @include('sweetalert::alert')
     </body>
 </html>
