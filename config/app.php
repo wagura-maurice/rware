@@ -69,7 +69,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Africa\Nairobi',
 
     /*
     |--------------------------------------------------------------------------
@@ -162,12 +162,14 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Orangehill\Iseed\IseedServiceProvider::class,
-        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
+        
 
         /*
          * Package Service Providers...
          */
+        Orangehill\Iseed\IseedServiceProvider::class,
+        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -227,6 +229,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class
+        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class
     ],
 ];

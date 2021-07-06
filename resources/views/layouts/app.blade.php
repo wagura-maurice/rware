@@ -11,7 +11,6 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
-        @notifyCss
         <link rel="stylesheet" href="{!! asset('css/app.css') !!}">
         <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" />
     </head>
@@ -341,7 +340,27 @@
         }
       }
     </script>
-    @notifyJs
     @stack('scripts')
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    @if(Session::has('message'))
+      var type = "{{ Session::get('alert-type', 'info') }}";
+      switch(type){
+          case 'info':
+              toastr.info("{{ Session::get('message') }}");
+              break;
+
+          case 'warning':
+              toastr.warning("{{ Session::get('message') }}");
+              break;
+
+          case 'success':
+              toastr.success("{{ Session::get('message') }}");
+              break;
+
+          case 'error':
+              toastr.error("{{ Session::get('message') }}");
+              break;
+      }
+    @endif
     </body>
 </html>
