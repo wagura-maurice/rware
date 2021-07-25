@@ -99,6 +99,14 @@
                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Certification Applications</span>
                 </a>
             </li>
+            @can('user_management_access')
+            <li>
+                <a href="{!! route('users.index') !!}" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium transform hover:translate-x-2 transition-transform ease-in duration-200 hover:bg-gray-200 {{ trim(Route::currentRouteName()) == 'users.index' || trim(Route::currentRouteName()) == 'users.create' || trim(Route::currentRouteName()) == 'users.edit' || trim(Route::currentRouteName()) == 'users.show' ? 'bg-gray-200' : '' }} focus:shadow-outline" :class="{'justify-center': !isSidebarOpen}">
+                <span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-data"></i></span>
+                    <span :class="{ 'lg:hidden': !isSidebarOpen }">System Users</span>
+                </a>
+            </li>
+            @endcan
             <!-- <li>
                 <a href="#" class="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium transform hover:translate-x-2 transition-transform ease-in duration-200 hover:bg-gray-200 focus:shadow-outline" :class="{'justify-center': !isSidebarOpen}">
                     <span class="inline-flex items-center justify-center h-5 w-12 text-lg text-gray-600"><i class="bx bx-desktop"></i></span>

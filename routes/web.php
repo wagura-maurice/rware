@@ -46,6 +46,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/businesses/create', 'BusinessController@create')->name('businesses.create');
     Route::post('/businesses/store', 'BusinessController@store')->name('businesses.store');
     Route::delete('/businesses/destroy/{business}', 'BusinessController@destroy')->name('businesses.destroy');
+    // users management point
+    Route::get('/users/index', 'UserController@index')->name('users.index')->middleware('can:user_management_access');
+    Route::get('/users/create', 'UserController@create')->name('users.create')->middleware('can:user_management_access');
+    Route::post('/users/store', 'UserController@store')->name('users.store')->middleware('can:user_management_access');
+    Route::get('/users/edit/{user}', 'UserController@edit')->name('users.edit')->middleware('can:user_management_access');
+    Route::delete('/users/destroy/{user}', 'UserController@destroy')->name('users.destroy')->middleware('can:user_management_access');
 });
 
 require __DIR__ . '/auth.php';

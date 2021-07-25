@@ -37,7 +37,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'email_verified_at',
-        'phone_number',
         'password',
         '_status'
     ];
@@ -75,7 +74,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'name' => 'nullable|string',
         'email' => 'nullable|email|unique:users',
         'email_verified_at' => 'nullable|string',
-        'phone_number' => 'required|string|unique:users',
         'password' => 'nullable|string|confirmed',
         'role' => 'required|string'
     ];
@@ -84,7 +82,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'name' => 'nullable|string',
         'email' => 'nullable|email',
         'email_verified_at' => 'nullable|string',
-        'phone_number' => 'nullable|string',
         'password' => 'nullable|string|confirmed',
         'role' => 'nullable|string'
     ];
