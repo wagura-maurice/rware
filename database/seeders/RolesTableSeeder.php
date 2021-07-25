@@ -23,7 +23,7 @@ class RolesTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'name' => 'admin',
-                'description' => 'administrator',
+                'description' => 'super administrator',
                 '_status' => '1',
                 'created_at' => NULL,
                 'updated_at' => NULL,
@@ -31,8 +31,17 @@ class RolesTableSeeder extends Seeder
             1 => 
             array (
                 'id' => 2,
-                'name' => 'tenant',
-                'description' => 'tenant client',
+                'name' => 'client',
+                'description' => 'client',
+                '_status' => '1',
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
+            2 => 
+            array (
+                'id' => 3,
+                'name' => 'manager',
+                'description' => 'administrative manager',
                 '_status' => '1',
                 'created_at' => NULL,
                 'updated_at' => NULL,
