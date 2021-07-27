@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 // Lipa na Mpesa Online Transactions
 Route::post('lnmo/transaction', 'LnmoController@transaction')->name('lnmo.transaction');
