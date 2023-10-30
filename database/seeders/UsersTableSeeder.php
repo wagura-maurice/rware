@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -25,7 +26,7 @@ class UsersTableSeeder extends Seeder
                 'name' => 'Maurice Wagura',
                 'email' => 'wagura465@gmail.com',
                 'email_verified_at' => '2021-07-05 10:19:46',
-                'password' => '$2y$10$.UQ4MIHHUGRVoeJAi.iEYOc0EOoS9ldTfj3UjPBeL4TpSccHe.dyW',
+                'password' => Hash::make('Qwerty123!'),
                 'remember_token' => 'hoOAiqTTkxfB3XprR7pQu7o1ZKMugRJ0Z6TWQKcnLSAMqqF1q84h47sztqZQ',
                 'created_at' => '2021-01-01 06:36:26',
                 'updated_at' => '2021-07-05 10:19:46',
@@ -36,7 +37,7 @@ class UsersTableSeeder extends Seeder
                 'name' => 'Dennis Kingori',
                 'email' => 'dennisvat30@gmail.com',
                 'email_verified_at' => NULL,
-                'password' => '$2y$10$.UQ4MIHHUGRVoeJAi.iEYOc0EOoS9ldTfj3UjPBeL4TpSccHe.dyW',
+                'password' => Hash::make('Qwerty123!'),
                 'remember_token' => NULL,
                 'created_at' => '2021-01-01 06:36:26',
                 'updated_at' => '2021-01-01 06:36:26',
@@ -47,7 +48,7 @@ class UsersTableSeeder extends Seeder
                 'name' => 'Demo Client',
                 'email' => 'demo@example.com',
                 'email_verified_at' => '2021-07-05 10:19:46',
-                'password' => '$2y$10$.UQ4MIHHUGRVoeJAi.iEYOc0EOoS9ldTfj3UjPBeL4TpSccHe.dyW',
+                'password' => Hash::make('Qwerty123!'),
                 'remember_token' => '5TBSPp558iet3Umy7iT3RGHXaOtvwVkxjK5uWtWzTZhnOCK9C02pQGXOTTSx',
                 'created_at' => '2021-01-01 06:36:26',
                 'updated_at' => '2021-01-01 06:36:26',
